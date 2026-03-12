@@ -16,6 +16,7 @@ class Sportsmen {
         this.lastName = lastName;
         this.oldName = oldName;
         this.region = region;
+        this.age = Math.floor(Math.random() * 35) + 18;
         this.medals = [];
         this.AddMedal();
     }
@@ -50,7 +51,21 @@ function sortMass() {
     return mass20.toSorted((a, b) => b.medalCount() - a.medalCount());
 }
 
-random = (mass) => mass[Math.floor(Math.random() * mass.length)];
+function MedalKopaytirish(mas, son) {
+    for (let i = 0; i < son; i++) {
+        mas.push(medal[Math.floor(Math.random() * medal.length)]);
+    }
+}
+
+function MedalKamaytirish(mas, son) {
+    for (let i = 0; i < son; i++) {
+        if (mas.length !== 0)
+            delete mas[i]
+        else break;
+    }
+}
+
+let random = (mass) => mass[Math.floor(Math.random() * mass.length)];
 
 // 20 TA SPORTSMEN TOLIWI
 
