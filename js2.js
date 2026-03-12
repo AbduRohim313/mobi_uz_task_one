@@ -51,10 +51,14 @@ function sortMass() {
     return mass20.toSorted((a, b) => b.medalCount() - a.medalCount());
 }
 
+
+let random = (mass) => mass[Math.floor(Math.random() * mass.length)];
+
 function MedalKopaytirish(mas, son) {
     for (let i = 0; i < son; i++) {
         mas.push(medal[Math.floor(Math.random() * medal.length)]);
     }
+    return mas;
 }
 
 function MedalKamaytirish(mas, son) {
@@ -63,9 +67,8 @@ function MedalKamaytirish(mas, son) {
             delete mas[i]
         else break;
     }
+    return mas;
 }
-
-let random = (mass) => mass[Math.floor(Math.random() * mass.length)];
 
 // 20 TA SPORTSMEN TOLIWI
 
@@ -75,8 +78,10 @@ for (let i = 0; i < 20; i++) {
 
 //UI GA CHIQARIW
 
-console.log(cloneObject(mass20[1]));
-console.log(compareSporsmens(mass20[1], mass20[0]));
+// console.log(cloneObject(mass20[1]));
+// console.log(compareSporsmens(mass20[1], mass20[0]));
 console.log(sortMass());
-
-
+// console.log(mass20[0].medals);
+// console.log(MedalKopaytirish(mass20[0].medals, 2));
+// console.log(mass20[1].medals);
+// console.log(MedalKamaytirish(mass20[1].medals, 2));
