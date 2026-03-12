@@ -16,35 +16,54 @@ class Sportsmen {
         this.lastName = lastName;
         this.oldName = oldName;
         this.region = region;
-        this.age = Math.floor(Math.random() * 35) + 18;
-        this.medals = [];
-        this.AddMedal();
+        this.age = Math.floor(Math.random() * 17) + 18;
+        this.Goldmedals = 0;
+        this.Silvermedals = 0;
+        this.Bronzemedals = 0;
+        this.addMedal(20);
+    }
+
+addMedal(son) {
+        for (let i = 0; i < son; i++) {
+            let medalIndex = Math.floor(Math.random() * 3);
+            switch (medalIndex) {
+                case 0:
+                    this.Goldmedals += 1;
+                    break;
+                case 1:
+                    this.Silvermedals += 1  ;
+                    break;
+                case 2:
+                    this.Bronzemedals += 1;
+                    break;
+            }
+        }
     }
 
     medalCount() {
-        return this.medals.length;
+        return this.Goldmedals + this.Silvermedals + this.Bronzemedals;
     }
 
-    AddMedal() {
-        for (let i = 0; i < Math.floor(Math.random() * 20); i++) {
-            this.medals.push(medal[Math.floor(Math.random() * 3)]);
-        }
-    }
+    
 }
 
 //3 TA METHOD
 
 cloneObject = (arg) => structuredClone(arg);
 compareSporsmens = (man1, man2) => {
-    man1Result = "";
-    man2Result = "";
-    for (let i = 0; i < man1.medals.length; i++) {
-        man1Result += (` ${i}. ` + man1.medals[i]);
-    }
-    for (let i = 0; i < man2.medals.length; i++) {
-        man2Result += (` ${i}. ` + man2.medals[i]);
-    }
+    // man1Result = "";
+    // man2Result = "";
+    // for (let i = 0; i < man1.medals.length; i++) {
+    //     man1Result += (` ${i}. ` + man1.medals[i]);
+    // }
+    // for (let i = 0; i < man2.medals.length; i++) {
+    //     man2Result += (` ${i}. ` + man2.medals[i]);
+    // }
+        man1Result = (`${man1.name} ${man1.region}:\n gold medals = ${man1.Goldmedals} | silver medals = ${man1.Silvermedals} | bronza medals = ${man1.Bronzemedals}`);
+        man2Result = (`${man2.name} ${man2.region}:\n gold medals = ${man2.Goldmedals} | silver medals = ${man2.Silvermedals} | bronza medals = ${man2.Bronzemedals}`);
+
     return (man1Result + "\n" + man2Result);
+
 }
 
 function sortMass() {
@@ -55,19 +74,47 @@ function sortMass() {
 let random = (mass) => mass[Math.floor(Math.random() * mass.length)];
 
 function MedalKopaytirish(mas, son) {
-    for (let i = 0; i < son; i++) {
-        mas.push(medal[Math.floor(Math.random() * medal.length)]);
-    }
+    mas.addMedal(son);
     return mas;
 }
 
+function piramida(mas_medal, son) {
+if(mas_medal > 0){
+            if(mas_medal >= son){
+                mas_medal -= son;
+                son = 0;
+            }else{
+                son -= mas_medal;
+                mas_medal = 0;
+    
+            }
+
+        }return {mas_medal, son};
+}
+
 function MedalKamaytirish(mas, son) {
-    for (let i = 0; i < son; i++) {
-        if (mas.length !== 0)
-            delete mas[i]
-        else break;
+    if(mas.medalCount() > son){
+        let oltinTemp  = piramida(mas.Goldmedals, son);
+        mas.Goldmedals = oltinTemp.mas_medal;
+        if(oltinTemp.son > 0){
+            let kumuwTemp = piramida(mas.Silvermedals, oltinTemp.son);
+            mas.Silvermedals = kumuwTemp.mas_medal;
+            if(kumuwTemp.son > 0){
+                let bronzaTemp = piramida(mas.Bronzemedals, kumuwTemp.son);
+                mas.Bronzemedals = bronzaTemp.mas_medal;}}
+        
+        // mas.Goldmedals = 0;
+        // mas.Silvermedals = 0;
+        // mas.Bronzemedals = 0;
+        // mas.addMedal(totalMedals - son);
+        return mas;
+    }else{
+        mas.Goldmedals = 0;
+        mas.Silvermedals = 0;
+        mas.Bronzemedals = 0;
     }
     return mas;
+    
 }
 
 // 20 TA SPORTSMEN TOLIWI
@@ -80,8 +127,9 @@ for (let i = 0; i < 20; i++) {
 
 // console.log(cloneObject(mass20[1]));
 // console.log(compareSporsmens(mass20[1], mass20[0]));
-console.log(sortMass());
-// console.log(mass20[0].medals);
-// console.log(MedalKopaytirish(mass20[0].medals, 2));
-// console.log(mass20[1].medals);
-// console.log(MedalKamaytirish(mass20[1].medals, 2));
+// console.log(sortMass());
+console.log("************************************************************");
+// console.log(mass20[0]);
+// console.log(MedalKopaytirish(mass20[0], 5));
+// console.log(mass20[1]);
+// console.log(MedalKamaytirish(mass20[1], 5));
